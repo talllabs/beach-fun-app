@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {nextTides,pacificTime,utcDate} from '../conditions.js';
+import {readFileSync} from 'node:fs';
+test('next tides skip past events and select each type across UTC midnight',()=>{
+ const next=nextTides([{t:'2026-10-16 19:18',type:'H'},{t:'2026-10-17 04:08',type:'L'},{t:'2026-10-17 20:32',type:'H'}],new Date('2026-10-16T20:00:00Z'));
+ assert.equal(next.low.date.toISOString(),'2026-10-17T04:08:00.000Z');assert.equal(next.high.date.toISOString(),'2026-10-17T20:32:00.000Z');
+});
+test('Pacific display follows daylight saving time independent of device timezone',()=>{
+ assert.match(pacificTime(new Date('2026-10-17T04:08:00Z')),/9:08 PM PDT/); assert.match(pacificTime(new Date('2026-12-17T04:08:00Z')),/8:08 PM PST/);
+ assert.equal(utcDate(new Date('2026-10-17T04:08:00Z')),'20261017');
+});
+test('empty predictions do not invent tide times',()=>assert.deepEqual(nextTides([],new Date()),{high:undefined,low:undefined}));
+test('camera configuration has unique IDs, secure URLs and station attribution',()=>{
+ const data=JSON.parse(readFileSync(new URL('../cams.json',import.meta.url)));const ids=new Set();
+ for(const beach of data.beaches){assert.ok(beach.tideStationName&&beach.temperatureStationName);assert.match(beach.tideStation,/^\d{7}$/);for(const cam of beach.cams){assert.ok(!ids.has(cam.id));ids.add(cam.id);assert.equal(new URL(cam.url).protocol,'https:');assert.equal(new URL(cam.sourceUrl).protocol,'https:');assert.ok(['hls','youtube','iframe'].includes(cam.type));}}
+});

@@ -1,0 +1,130 @@
+{
+  "updated": "2026-10-16",
+  "beaches": [
+    {
+      "id": "huntington",
+      "name": "Huntington Beach",
+      "latitude": 33.655,
+      "area": "The iconic pier & wide-open sand",
+      "drive": "About 40\u201355 min north",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [
+        {
+          "id": "hb-pier",
+          "name": "Pier & Pacific",
+          "provider": "City of Huntington Beach / YouTube",
+          "type": "youtube",
+          "url": "https://www.youtube.com/embed/mhQjsLBfOoY",
+          "sourceUrl": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
+          "status": "enabled",
+          "note": "Public pier camera \u00b7 YouTube may show ads"
+        }
+      ],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)"
+    },
+    {
+      "id": "monarch",
+      "name": "Monarch Bay",
+      "latitude": 33.483,
+      "area": "A quiet corner of Dana Point",
+      "drive": "About 10 min north",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [
+        {
+          "id": "monarch-bay",
+          "name": "Monarch Bay Beach Club",
+          "provider": "HDOnTap",
+          "type": "iframe",
+          "url": "https://portal.hdontap.com/s/embed/?stream=fulkra_monarch_resort_new-HDOT",
+          "sourceUrl": "https://hdontap.com/stream/621213/monarch-bay-beach-club-live-webcam/",
+          "status": "blocked",
+          "note": "Free to view \u00b7 provider currently blocks outside embeds"
+        }
+      ],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)"
+    },
+    {
+      "id": "dana-point",
+      "name": "Dana Point",
+      "latitude": 33.462,
+      "area": "Harbor days & coastal views",
+      "drive": "Your home stretch",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [
+        {
+          "id": "dana-harbor",
+          "name": "Harbor overlook",
+          "provider": "HDOnTap / Laguna Cliffs",
+          "type": "iframe",
+          "url": "https://portal.hdontap.com/s/embed/?stream=danapoint-harbor_lgm-HDOT",
+          "sourceUrl": "https://hdontap.com/stream/994481/dana-point-harbor-laguna-cliffs-resort-live-webcam/",
+          "status": "blocked",
+          "note": "Harbor view \u00b7 provider currently blocks outside embeds"
+        }
+      ],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)"
+    },
+    {
+      "id": "san-clemente",
+      "name": "San Clemente",
+      "latitude": 33.419,
+      "area": "The pier, the surf, the Spanish Village",
+      "drive": "About 15 min south",
+      "tideStation": "9410230",
+      "tideStationName": "La Jolla",
+      "cams": [
+        {
+          "id": "sc-pier",
+          "name": "San Clemente Pier",
+          "provider": "City of San Clemente / YouTube",
+          "type": "youtube",
+          "url": "https://www.youtube.com/embed/2c7NV66YzKA",
+          "sourceUrl": "https://www.orangecountyoutdoors.com/get-out-there/piers/san-clemente-pier",
+          "status": "enabled",
+          "note": "Public pier camera \u00b7 YouTube may show ads"
+        }
+      ],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)"
+    },
+    {
+      "id": "carlsbad",
+      "name": "Carlsbad",
+      "latitude": 33.158,
+      "area": "Long beaches, easy afternoons",
+      "drive": "About 40\u201355 min south",
+      "tideStation": "9410230",
+      "tideStationName": "La Jolla",
+      "cams": [
+        {
+          "id": "carlsbad-surf",
+          "name": "Carlsbad Beach Surf",
+          "provider": "HDOnTap / Seashore on the Sand",
+          "type": "iframe",
+          "url": "https://portal.hdontap.com/s/embed/?stream=carlsbad_seashoreonthesand-HDOT",
+          "sourceUrl": "https://hdontap.com/stream/155380/carlsbad-beach-surf-live-webcam/",
+          "status": "blocked",
+          "note": "Free to view \u00b7 provider currently blocks outside embeds"
+        },
+        {
+          "id": "terramar",
+          "name": "Terramar Point",
+          "provider": "HDOnTap",
+          "type": "iframe",
+          "url": "https://portal.hdontap.com/s/embed/?stream=hdontap_carlsbad_terra-mar-pt-HDOT",
+          "sourceUrl": "https://hdontap.com/stream/177276/terramar-point-surf-live-webcam/",
+          "status": "blocked",
+          "note": "Free to view \u00b7 provider currently blocks outside embeds"
+        }
+      ],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)"
+    }
+  ]
+}
