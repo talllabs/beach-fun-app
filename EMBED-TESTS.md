@@ -7,7 +7,7 @@ Six configured camera URLs were checked. An HTTP 200 response alone does **not**
 | Huntington Beach — Pier & Pacific | **Working in the local app** | YouTube API reported Playing; picture visibly showed the pier, beach, and ocean. Uses `mhQjsLBfOoY`. |
 | San Clemente — Pier | **Working in the local app** | YouTube API reported Playing; picture visibly showed the beach/ocean and City of San Clemente Beach Camera watermark. Uses `2c7NV66YzKA`. Refresh was exercised. |
 | Monarch Bay Beach Club | **Embedding blocked** | Portal endpoint returned HTTP 200 with `Content-Security-Policy: frame-ancestors 'self' https://hdontap.com https://*.hdontap.com`. The app shows an explanatory source-link card. |
-| Dana Point Harbor | **Embedding blocked** | Same portal HTTP 200 / restrictive frame-ancestors policy. Source-link card. |
+| Dana Point Harbor | **Enabled by request, unverified** | Earlier check returned the restrictive frame-ancestors policy. Turned on so the player is attempted; if it stays blank, tap **Blank or frozen?** or set its status back to `blocked`. |
 | Carlsbad Beach Surf | **Embedding blocked** | Same portal HTTP 200 / restrictive frame-ancestors policy. Source-link card. |
 | Terramar Point | **Embedding blocked** | Same portal HTTP 200 / restrictive frame-ancestors policy. Source-link card. |
 
