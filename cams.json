@@ -63,8 +63,8 @@
           "type": "iframe",
           "url": "https://portal.hdontap.com/s/embed/?stream=danapoint-harbor_lgm-HDOT",
           "sourceUrl": "https://hdontap.com/stream/994481/dana-point-harbor-laguna-cliffs-resort-live-webcam/",
-          "status": "blocked",
-          "note": "Harbor view \u00b7 provider currently blocks outside embeds"
+          "status": "enabled",
+          "note": "Harbor view \u00b7 if the picture stays blank, tap \u201cBlank or frozen?\u201d"
         }
       ],
       "temperatureStation": "9410230",
