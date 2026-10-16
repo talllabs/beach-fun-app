@@ -88,6 +88,26 @@
           "sourceUrl": "https://www.orangecountyoutdoors.com/get-out-there/piers/san-clemente-pier",
           "status": "enabled",
           "note": "Public pier camera \u00b7 YouTube may show ads"
+        },
+        {
+          "id": "sc-fishermans-1",
+          "name": "San Clemente Pier (The Fisherman's) - Cam 1",
+          "provider": "Surfline / The Fisherman's Restaurant",
+          "type": "iframe",
+          "url": "https://embed.cdn-surfline.com/cams/5cddf27a77e6e6864e1bb17b/11f705748626162a5d9f13ab7b7a9ed7c850438a",
+          "sourceUrl": "https://www.thefishermansrestaurantsanclemente.com/",
+          "status": "enabled",
+          "note": "Surfline HD cam \u00b7 if the picture stays blank, tap \u201cBlank or frozen?\u201d"
+        },
+        {
+          "id": "sc-fishermans-2",
+          "name": "San Clemente Pier (The Fisherman's) - Cam 2",
+          "provider": "Surfline / The Fisherman's Restaurant",
+          "type": "iframe",
+          "url": "https://embed.cdn-surfline.com/cams/5cddf2929cd5c3ca3641b223/359a17fbe7c8617c8fb99fae7c6dff02631a26dc",
+          "sourceUrl": "https://www.thefishermansrestaurantsanclemente.com/",
+          "status": "enabled",
+          "note": "Surfline HD cam \u00b7 if the picture stays blank, tap \u201cBlank or frozen?\u201d"
         }
       ],
       "temperatureStation": "9410230",
