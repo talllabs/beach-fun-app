@@ -63,8 +63,48 @@
           "type": "iframe",
           "url": "https://portal.hdontap.com/s/embed/?stream=danapoint-harbor_lgm-HDOT",
           "sourceUrl": "https://hdontap.com/stream/994481/dana-point-harbor-laguna-cliffs-resort-live-webcam/",
-          "status": "enabled",
-          "note": "Harbor view \u00b7 if the picture stays blank, tap \u201cBlank or frozen?\u201d"
+          "status": "blocked",
+          "note": "Harbor view \u00b7 provider blocks outside embeds"
+        },
+        {
+          "id": "doheny-hammer",
+          "name": "Doheny - The Hammer",
+          "provider": "Surfline",
+          "type": "iframe",
+          "url": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=5834981be411dc743a5d5286",
+          "sourceUrl": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=5834981be411dc743a5d5286",
+          "status": "blocked",
+          "note": "Free to view on Surfline \u00b7 tap to watch"
+        },
+        {
+          "id": "doheny-boneyard",
+          "name": "Doheny - Boneyard",
+          "provider": "Surfline",
+          "type": "iframe",
+          "url": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=6483816e5350c1ec41ce55c0",
+          "sourceUrl": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=6483816e5350c1ec41ce55c0",
+          "status": "blocked",
+          "note": "Free to view on Surfline \u00b7 tap to watch"
+        },
+        {
+          "id": "doheny-second-spot",
+          "name": "Doheny - Second Spot",
+          "provider": "Surfline",
+          "type": "iframe",
+          "url": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=58bde3f1f5eced643004de94",
+          "sourceUrl": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=58bde3f1f5eced643004de94",
+          "status": "blocked",
+          "note": "Free to view on Surfline \u00b7 tap to watch"
+        },
+        {
+          "id": "doheny-rivermouth",
+          "name": "Doheny - Rivermouth",
+          "provider": "Surfline",
+          "type": "iframe",
+          "url": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=58bde3d6f5eced643004de93",
+          "sourceUrl": "https://www.surfline.com/surf-report/doheny-state-beach/5842041f4e65fad6a77088d7?camId=58bde3d6f5eced643004de93",
+          "status": "blocked",
+          "note": "Free to view on Surfline \u00b7 tap to watch"
         }
       ],
       "temperatureStation": "9410230",
