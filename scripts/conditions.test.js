@@ -13,5 +13,5 @@ test('Pacific display follows daylight saving time independent of device timezon
 test('empty predictions do not invent tide times',()=>assert.deepEqual(nextTides([],new Date()),{high:undefined,low:undefined}));
 test('camera configuration has unique IDs, secure URLs and station attribution',()=>{
  const data=JSON.parse(readFileSync(new URL('../cams.json',import.meta.url)));const ids=new Set();
- for(const beach of data.beaches){assert.ok(beach.tideStationName&&beach.temperatureStationName);assert.match(beach.tideStation,/^\d{7}$/);for(const cam of beach.cams){assert.ok(!ids.has(cam.id));ids.add(cam.id);assert.equal(new URL(cam.url).protocol,'https:');assert.equal(new URL(cam.sourceUrl).protocol,'https:');assert.ok(['hls','youtube','iframe'].includes(cam.type));}}
+ for(const beach of data.beaches){assert.ok(beach.tideStationName&&beach.temperatureStationName);assert.ok(Array.isArray(beach.cams));if(beach.qualityUrl)assert.equal(new URL(beach.qualityUrl).protocol,'https:');assert.match(beach.tideStation,/^\d{7}$/);for(const cam of beach.cams){assert.ok(!ids.has(cam.id));ids.add(cam.id);assert.equal(new URL(cam.url).protocol,'https:');assert.equal(new URL(cam.sourceUrl).protocol,'https:');assert.ok(['hls','youtube','iframe'].includes(cam.type));}}
 });

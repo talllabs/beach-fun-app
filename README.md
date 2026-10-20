@@ -103,7 +103,8 @@ Each item under `beaches` has:
 - `latitude`: used to sort beaches north to south.
 - `tideStation` and `tideStationName`: NOAA prediction station and visible attribution.
 - `temperatureStation` and `temperatureStationName`: NOAA observation station and visible attribution.
-- `cams`: one or more camera entries for that beach.
+- `qualityUrl`: optional link to the beach's Heal the Bay Beach Report Card page (`https://beachreportcard.org/LATITUDE/LONGITUDE/15`). It shows as a **Water quality** link next to the tides.
+- `cams`: camera entries for that beach. Use `[]` for a beach with no camera; it still shows tides, water temperature and water quality.
 
 A camera looks like this:
 

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16",
+  "updated": "2026-10-20",
   "beaches": [
     {
       "id": "huntington",
@@ -22,7 +22,8 @@
         }
       ],
       "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)"
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15"
     },
     {
       "id": "monarch",
@@ -45,7 +46,8 @@
         }
       ],
       "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)"
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15"
     },
     {
       "id": "dana-point",
@@ -108,7 +110,8 @@
         }
       ],
       "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)"
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15"
     },
     {
       "id": "san-clemente",
@@ -151,7 +154,8 @@
         }
       ],
       "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)"
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15"
     },
     {
       "id": "carlsbad",
@@ -184,7 +188,60 @@
         }
       ],
       "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)"
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15"
+    },
+    {
+      "id": "newport",
+      "name": "Newport Beach",
+      "latitude": 33.6073,
+      "area": "Two piers & a classic boardwalk",
+      "drive": "About 25\u201335 min north",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15"
+    },
+    {
+      "id": "laguna",
+      "name": "Laguna Beach",
+      "latitude": 33.5427,
+      "area": "Main Beach, coves & tide pools",
+      "drive": "About 20 min north",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15"
+    },
+    {
+      "id": "salt-creek",
+      "name": "Salt Creek & Strands",
+      "latitude": 33.4766,
+      "area": "Surf, bluffs & sunset walks",
+      "drive": "About 5\u201310 min north",
+      "tideStation": "9410580",
+      "tideStationName": "Newport Bay entrance",
+      "cams": [],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15"
+    },
+    {
+      "id": "san-onofre",
+      "name": "San Onofre / Trestles",
+      "latitude": 33.3826,
+      "area": "Old-school surf & wide-open shoreline",
+      "drive": "About 20\u201325 min south",
+      "tideStation": "9410230",
+      "tideStationName": "La Jolla",
+      "cams": [],
+      "temperatureStation": "9410230",
+      "temperatureStationName": "La Jolla (regional reading)",
+      "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15"
     }
   ]
 }

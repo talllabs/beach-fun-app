@@ -220,8 +220,15 @@ function render(data) {
     for (const [icon,label,attribute] of [['↗','NEXT HIGH','high'],['↘','NEXT LOW','low'],['≈','WATER TEMP','water']]) {
       const metric=el('div','metric'); const text=el('div'); const value=el('strong','','Loading…'); value.dataset[attribute]=''; text.append(el('small','',label),value);metric.append(el('span','metric-icon',icon),text);box.append(metric);
     }
+    if (beach.qualityUrl) {
+      // Heal the Bay has no public data feed, so link to the beach's grade page.
+      const metric=el('div','metric'); const text=el('div'); const link=el('a','','Heal the Bay grade ↗');
+      link.href=safeURL(beach.qualityUrl); link.target='_blank'; link.rel='noopener'; link.setAttribute('aria-label',`Water quality grade for ${beach.name} at Heal the Bay`);
+      text.append(el('small','','WATER QUALITY'),link); metric.append(el('span','metric-icon','✓'),text); box.append(metric);
+    }
     box.append(el('div','station-note','NOAA nearby station data · Pacific time'));
     const cams=el('div','cams');for(const cam of beach.cams){cams.append(card(cam));count++;}
+    if(!beach.cams.length) cams.append(el('p','no-cam','No camera here yet. Tides, water temperature and the water quality link still work.'));
     section.append(head,box,cams);beachRoot.append(section); conditions(beach,box);
   }
   document.querySelector('#cam-count').textContent=`${beaches.length} coastal stops · ${count} camera views`;
