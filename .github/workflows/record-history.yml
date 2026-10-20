@@ -1,0 +1,26 @@
+name: Record beach history
+on:
+  schedule:
+    - cron: '52 14 * * *' # about 7:50am Pacific in summer, 6:50am in winter
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: record-history
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/record-history.mjs
+      - name: Save the new readings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history
+          git diff --cached --quiet && exit 0
+          git commit -m "Record beach history for $(TZ=America/Los_Angeles date +%F)"
+          git push

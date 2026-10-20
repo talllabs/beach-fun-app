@@ -100,11 +100,11 @@ Each item under `beaches` has:
 
 - `id`: a unique simple name for jump links, such as `san-clemente`.
 - `name`, `area`, `drive`: the visible labels. Drive times are rough estimates, not live traffic.
-- `latitude`: used to sort beaches north to south.
-- `tideStation` and `tideStationName`: NOAA prediction station and visible attribution.
-- `temperatureStation` and `temperatureStationName`: NOAA observation station and visible attribution.
-- `qualityUrl`: optional link to the beach's Heal the Bay Beach Report Card page (`https://beachreportcard.org/LATITUDE/LONGITUDE/15`). It shows as a **Water quality** link next to the tides.
-- `qualityStation` and `qualityStationName`: the Heal the Bay station `_id` from `https://admin.beachreportcard.org/api/locations/` and its visible name. The app shows that station's `dry_grade` and `grade_updated` date, or **No recent test**.
+- `latitude` and `longitude`: the beach's location. The app sorts beaches along the coast and finds the closest tide station, temperature sensor, water quality station and forecast grid cell from these.
+- `facing`: the compass direction (0–359°) the beach faces out to sea. It is approximate and decides whether wind is labeled offshore, onshore or cross-shore.
+- `advisoryUrl`: the county page with current closures and advisories (OC Beach Info or SD Beach Info).
+- `qualityUrl`: link to the beach's Heal the Bay Beach Report Card page (`https://beachreportcard.org/LATITUDE/LONGITUDE/15`).
+- `qualityStation` (optional): a Heal the Bay station `_id` from `https://admin.beachreportcard.org/api/locations/` to prefer. It is still checked by distance: within 0.5 mi it counts as local, up to 4 mi it is labeled “Nearby sample”, and beyond that the app shows “No local result available”. Without it, the nearest active station is used.
 - `cams`: camera entries for that beach. Use `[]` for a beach with no camera; it still shows tides, water temperature and water quality.
 
 A camera looks like this:
@@ -140,11 +140,21 @@ Reload the website after GitHub finishes publishing. The service worker uses net
 
 ## How the conditions work
 
-NOAA's free CO-OPS API returns the next high and low predictions, plus the latest water temperature. Requests use UTC internally and display Pacific time with daylight saving handled correctly. Missing predictions and observations older than three hours display **Unavailable**. Data refreshes every ten minutes while the page is visible, and with Refresh all. Requests are shared for beaches using the same station.
+Each beach finds its own sources from its coordinates:
 
-These are **regional/nearby station readings**, not beach-by-beach measurements. Newport Bay entrance supplies the northern tide reference; La Jolla supplies the southern tide reference and regional temperature. Local tides and water temperature can differ. This is a beach viewing app, not a navigation or ocean safety forecast.
+- **Tides:** the closest NOAA prediction station from NOAA's station list (`mdapi`), including local subordinate stations, with high/low times and heights in feet above MLLW. The station name and distance are shown.
+- **Water temperature:** the closest NOAA sensor that reported in the last 3 hours, with its name, distance and measurement time. If it is more than 10 miles away, it is labeled **Regional water temperature**.
+- **Swell and wind:** [Open-Meteo](https://open-meteo.com/en/docs/marine-weather-api) model forecasts, labeled as such. Grid cells span several kilometres, so neighbouring beaches can share values. Offshore wave height is not a breaking-surf estimate, and the app never rates surf or says a beach is “safe for beginners”.
+- **Water quality:** the county advisory link is shown separately from the latest Heal the Bay grade, because a good grade never overrides a current closure. The app doesn't check advisories itself yet.
+- **Freshness:** every value shows when it was measured or sampled, separately from when the app checked. Lists the app reuses (station lists for a day, Heal the Bay grades for an hour) show when they were fetched, so a reload never makes old data look new.
 
-API documentation: <https://api.tidesandcurrents.noaa.gov/api/prod/>.
+Station lists are cached for a day and conditions refresh every ten minutes while the page is visible. This is a beach viewing app, not a navigation or ocean safety forecast.
+
+## History and archive
+
+`.github/workflows/record-history.yml` runs `scripts/record-history.mjs` every morning (and on demand from the Actions tab). It saves each beach's water temperature and latest grade to `data/history/YYYY-MM.json` and lists the months in `data/history/index.json`. Running it twice on the same day replaces that day's readings; nothing older is deleted. Each beach's **History** panel draws the temperature line, the daily grade strip and a table from these files.
+
+API documentation: <https://api.tidesandcurrents.noaa.gov/api/prod/>, <https://open-meteo.com/en/docs/marine-weather-api>.
 
 ## Check the code
 
