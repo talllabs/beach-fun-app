@@ -66,8 +66,9 @@ export async function healTheBayLocations() {
 const list = (beaches, key) => beaches.map(b => b[key]).join(',');
 export async function marineForecast(beaches) {
   const query = new URLSearchParams({latitude:list(beaches,'latitude'), longitude:list(beaches,'longitude'),
-    current:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction',
-    hourly:'swell_wave_height,swell_wave_period', length_unit:'imperial', cell_selection:'sea', timezone:'America/Los_Angeles', forecast_days:'1'});
+    current:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction,sea_surface_temperature',
+    hourly:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction', temperature_unit:'fahrenheit', length_unit:'imperial',
+    cell_selection:'sea', timezone:'America/Los_Angeles', forecast_days:'1'});
   const data = await getJSON(`https://marine-api.open-meteo.com/v1/marine?${query}`);
   return Array.isArray(data) ? data : [data];
 }

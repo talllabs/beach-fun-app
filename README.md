@@ -104,7 +104,9 @@ Each item under `beaches` has:
 - `facing`: the compass direction (0–359°) the beach faces out to sea. It is approximate and decides whether wind is labeled offshore, onshore or cross-shore.
 - `advisoryUrl`: the county page with current closures and advisories (OC Beach Info or SD Beach Info).
 - `qualityUrl`: link to the beach's Heal the Bay Beach Report Card page (`https://beachreportcard.org/LATITUDE/LONGITUDE/15`).
-- `qualityStation` (optional): a Heal the Bay station `_id` from `https://admin.beachreportcard.org/api/locations/` to prefer. It is still checked by distance: within 0.5 mi it counts as local, up to 4 mi it is labeled “Nearby sample”, and beyond that the app shows “No local result available”. Without it, the nearest active station is used.
+- `exposure`: 0 (sheltered, e.g. Dana Point Harbor) to 1 (fully exposed, e.g. Trestles); scales the surf estimate.
+- `harbor` (optional): `true` lets the beach use harbor/bay/dock stations for water quality.
+- `qualityStations` (optional): preferred Heal the Bay station `_id`s, in order. The first with a grade from the last 30 days is used. Otherwise the app picks the nearest ocean-facing station (names with harbor, bay, slough, marina, dock, channel, creek, drain or outlet are skipped) graded in the last 30 days. Stations more than 0.5 mi away are labeled “Nearby sample” with their distance.
 - `cams`: camera entries for that beach. Use `[]` for a beach with no camera; it still shows tides, water temperature and water quality.
 
 A camera looks like this:
@@ -143,8 +145,9 @@ Reload the website after GitHub finishes publishing. The service worker uses net
 Each beach finds its own sources from its coordinates:
 
 - **Tides:** the closest NOAA prediction station from NOAA's station list (`mdapi`), including local subordinate stations, with high/low times and heights in feet above MLLW. The station name and distance are shown.
-- **Water temperature:** the closest NOAA sensor that reported in the last 3 hours, with its name, distance and measurement time. If it is more than 10 miles away, it is labeled **Regional water temperature**.
-- **Swell and wind:** [Open-Meteo](https://open-meteo.com/en/docs/marine-weather-api) model forecasts, labeled as such. Grid cells span several kilometres, so neighbouring beaches can share values. Offshore wave height is not a breaking-surf estimate, and the app never rates surf or says a beach is “safe for beginners”.
+- **Water temperature:** Open-Meteo's sea-surface model (`sea_surface_temperature`, °F) at the beach's own coordinates, labeled "Water temp · model, at this beach". If the model has no value, the closest NOAA sensor that reported in the last 3 hours is used instead and labeled as a sensor reading with its distance.
+- **Surf (estimate):** Open-Meteo swell height, period and direction at the beach, turned into a rough breaking height: swell height × how squarely the swell hits the beach's `facing` × a period factor × the beach's `exposure` (0 = sheltered, 1 = fully exposed). The result is shown as a 1-foot range, for example "2–3 ft (est.) · 13 s SSW swell", with Clean/Fair/Choppy from the wind relative to the beach. It is not a measurement or a safety rating. Surfline is not used, because its API blocks other sites.
+- **Wind:** Open-Meteo model wind, labeled offshore/onshore/cross-shore from `facing`.
 - **Water quality:** the county advisory link is shown separately from the latest Heal the Bay grade, because a good grade never overrides a current closure. The app doesn't check advisories itself yet.
 - **Freshness:** every value shows when it was measured or sampled, separately from when the app checked. Lists the app reuses (station lists for a day, Heal the Bay grades for an hour) show when they were fetched, so a reload never makes old data look new.
 

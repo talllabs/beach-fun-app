@@ -1,4 +1,4 @@
-import { pacificTime, waterGrade, testedDate, distanceMiles, miles, qualityMatch, shortStationName, ageText, sampleDay, compass, windRelation, dayparts, gradeLevel } from './conditions.js';
+import { pacificTime, waterGrade, testedDate, distanceMiles, miles, qualityMatch, shortStationName, ageText, sampleDay, compass, windRelation, dayparts, gradeLevel, surfEstimate, surfRange, surfQuality } from './conditions.js';
 import { noaaStations, tidesFor, waterTempFor, healTheBayLocations, marineForecast, windForecast } from './sources.js';
 import { historyPanel } from './history.js';
 import { drivePill, setupDrive, refreshDrive } from './drive.js';
@@ -208,35 +208,52 @@ const set = (node, text) => { node.textContent = text; };
 const pacificDay = date => new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles'}).format(date);
 const feet = value => `${value < 10 ? value.toFixed(1) : Math.round(value)} ft`;
 function tideText(event) { return event ? `${pacificTime(event.date)} · ${feet(Number(event.v))}` : 'Unavailable'; }
+// Open-Meteo times are already Pacific local ("2026-10-20T10:15").
+const localClock = t => { const m = /T(\d{2}):(\d{2})/.exec(t || ''); if (!m) return ''; const h = +m[1]; return `${h % 12 || 12}:${m[2]} ${h < 12 ? 'AM' : 'PM'}`; };
+function surfLine(beach, swell, period, direction) {
+  const est = surfEstimate({height:swell, period, direction}, beach.facing, beach.exposure);
+  return {est, text:surfRange(est)};
+}
 async function conditions(beach, box) {
   const ui = views.get(box), shared = sources(), checked = new Date();
-  const [tide, temp] = await Promise.allSettled([
-    shared.tideStations.then(s => tidesFor(beach, s.data)),
-    shared.tempStations.then(s => waterTempFor(beach, s.data, shared.readings))]);
+  const i = shared.index.get(beach.id);
+  const [tide, marine, wind] = await Promise.all([
+    shared.tideStations.then(s => tidesFor(beach, s.data)).then(v => ({ok:true, v}), () => ({ok:false})), shared.marine, shared.wind]);
   let tideNote = 'Tides unavailable';
-  if (tide.status === 'fulfilled') {
-    set(ui.high, tideText(tide.value.high)); set(ui.low, tideText(tide.value.low));
-    const s = tide.value.station; tideNote = `Tides: NOAA ${s.name}${s.type === 'S' ? ' (subordinate)' : ''}, ${miles(s.miles)} away`;
+  if (tide.ok) {
+    set(ui.high, tideText(tide.v.high)); set(ui.low, tideText(tide.v.low));
+    const s = tide.v.station; tideNote = `Tides: NOAA ${s.name}${s.type === 'S' ? ' (subordinate)' : ''}, ${miles(s.miles)} away`;
   } else { set(ui.high, 'Unavailable'); set(ui.low, 'Unavailable'); }
-  const reading = temp.status === 'fulfilled' ? temp.value : null;
-  set(ui.tempLabel, reading?.regional ? 'REGIONAL WATER TEMP' : 'WATER TEMP');
-  set(ui.temp, reading ? `${reading.value.toFixed(1)}°F` : 'Unavailable');
-  set(ui.tempDetail, reading ? `${reading.station.name} · ${miles(reading.station.miles)} away · measured ${pacificTime(reading.observed)}` : 'No sensor nearby reported in the last 3 hours');
-  const i = shared.index.get(beach.id); const [marine, wind] = await Promise.all([shared.marine, shared.wind]);
   const sea = marine?.[i], air = wind?.[i], c = sea?.current, w = air?.current;
+  // Water temperature: the sea-surface model at this beach's own coordinates; a NOAA sensor only as a fallback.
+  if (Number.isFinite(c?.sea_surface_temperature)) {
+    set(ui.tempLabel, 'WATER TEMP · MODEL, AT THIS BEACH'); set(ui.temp, `${c.sea_surface_temperature.toFixed(1)}°F`);
+    set(ui.tempDetail, `Open-Meteo sea-surface model for this beach · model time ${localClock(c.time)}`);
+  } else {
+    const reading = await shared.tempStations.then(s => waterTempFor(beach, s.data, shared.readings)).catch(() => null);
+    set(ui.tempLabel, reading?.regional ? 'REGIONAL WATER TEMP · SENSOR' : 'WATER TEMP · SENSOR');
+    set(ui.temp, reading ? `${reading.value.toFixed(1)}°F` : 'Unavailable');
+    set(ui.tempDetail, reading ? `Model unavailable, so NOAA ${reading.station.name} · ${miles(reading.station.miles)} away · measured ${pacificTime(reading.observed)}` : 'No model or recent sensor reading');
+  }
+  const windFrom = w?.wind_direction_10m, windMph = w?.wind_speed_10m, relation = windRelation(windFrom, beach.facing);
   if (Number.isFinite(c?.swell_wave_height)) {
-    set(ui.swell, `${feet(c.swell_wave_height)} · ${Math.round(c.swell_wave_period)} s · ${compass(c.swell_wave_direction)}`);
-    set(ui.swellDetail, Number.isFinite(c.wave_height) ? `Offshore wave height ${feet(c.wave_height)} · not a breaking-surf estimate` : 'Not a breaking-surf estimate');
-  } else { set(ui.swell, 'Unavailable'); set(ui.swellDetail, 'Model forecast unavailable'); }
-  if (Number.isFinite(w?.wind_speed_10m)) {
-    set(ui.wind, `${Math.round(w.wind_speed_10m)} mph ${compass(w.wind_direction_10m)}`);
-    set(ui.windDetail, `${windRelation(w.wind_direction_10m, beach.facing)} for this beach`);
+    const surf = surfLine(beach, c.swell_wave_height, c.swell_wave_period, c.swell_wave_direction);
+    set(ui.swell, `${surf.text || 'Unavailable'} (est.) · ${Math.round(c.swell_wave_period)} s ${compass(c.swell_wave_direction)} swell`);
+    const quality = surfQuality(relation, windMph, surf.est);
+    set(ui.swellDetail, `${quality ? `${quality} · ` : ''}from ${feet(c.swell_wave_height)} model swell and this beach’s exposure; not a measurement`);
+  } else { set(ui.swell, 'Unavailable'); set(ui.swellDetail, 'Model swell unavailable'); }
+  if (Number.isFinite(windMph)) {
+    set(ui.wind, `${Math.round(windMph)} mph ${compass(windFrom)}`); set(ui.windDetail, `${relation} for this beach`);
   } else { set(ui.wind, 'Unavailable'); set(ui.windDetail, 'Model forecast unavailable'); }
   const parts = dayparts(sea?.hourly, air?.hourly, pacificDay(checked));
-  const part = (name, p) => Number.isFinite(p.swell) || Number.isFinite(p.wind)
-    ? `${name}: swell ${Number.isFinite(p.swell) ? `${feet(p.swell)}${Number.isFinite(p.period) ? ` at ${Math.round(p.period)} s` : ''}` : 'n/a'}, wind ${Number.isFinite(p.wind) ? `${Math.round(p.wind)} mph ${windRelation(p.windFrom, beach.facing).toLowerCase()}` : 'n/a'}` : '';
+  const part = (name, p) => {
+    if (!Number.isFinite(p.swell) && !Number.isFinite(p.wind)) return '';
+    const surf = Number.isFinite(p.swell) ? surfLine(beach, p.swell, p.period, p.swellFrom).text : '';
+    const breeze = Number.isFinite(p.wind) ? `${Math.round(p.wind)} mph ${windRelation(p.windFrom, beach.facing).toLowerCase()}` : 'n/a';
+    return `${name}: surf ${surf ? `${surf} est.` : 'n/a'}, wind ${breeze}`;
+  };
   set(ui.forecast, [part('Morning', parts.morning), part('Afternoon', parts.afternoon)].filter(Boolean).join(' · ') || 'Forecast unavailable');
-  set(ui.note, `${tideNote} · Model data: Open-Meteo, grid cells span several km · Pacific time · App checked ${pacificTime(checked)}`);
+  set(ui.note, `${tideNote} · Surf and water temp: Open-Meteo models at this beach’s coordinates · Pacific time · App checked ${pacificTime(checked)}`);
 }
 async function waterQuality(beach, box) {
   const ui = views.get(box);
@@ -267,7 +284,7 @@ function outLink(text, href, label) { const a = el('a', 'metric-link', text); a.
 function buildConditions(beach) {
   const box = el('div', 'conditions');
   const high = metric(box, '↗', 'NEXT HIGH'), low = metric(box, '↘', 'NEXT LOW'), temp = metric(box, '≈', 'WATER TEMP');
-  const swell = metric(box, '∿', 'SWELL · MODEL FORECAST'), wind = metric(box, '➶', 'WIND · MODEL FORECAST');
+  const swell = metric(box, '∿', 'SURF · ESTIMATE'), wind = metric(box, '➶', 'WIND · MODEL FORECAST');
   const advisory = metric(box, '!', 'ADVISORY STATUS', 'advisory');
   set(advisory.value, 'Not checked in app'); set(advisory.detail, 'Closures and advisories can change daily. A good grade never overrides one.');
   const county = new URL(beach.advisoryUrl).host.includes('sdbeachinfo') ? 'SD Beach Info' : 'OC Beach Info';
@@ -275,7 +292,7 @@ function buildConditions(beach) {
   const grade = metric(box, '◇', 'LATEST WATER QUALITY GRADE', 'quality'); grade.value.classList.add('grade'); set(grade.value, 'Checking…');
   grade.text.append(outLink('Heal the Bay ↗', beach.qualityUrl, `Water quality report for ${beach.name} at Heal the Bay`));
   const forecast = el('div', 'forecast'); const forecastText = el('span', '', 'Loading forecast…');
-  forecast.append(el('small', '', 'TODAY · MODEL FORECAST'), forecastText, outLink('Open-Meteo ↗', 'https://open-meteo.com/en/docs/marine-weather-api'));
+  forecast.append(el('small', '', 'TODAY · SURF & WIND FORECAST'), forecastText, outLink('Open-Meteo ↗', 'https://open-meteo.com/en/docs/marine-weather-api'));
   const note = el('div', 'station-note', 'Loading conditions…');
   box.append(forecast, note);
   views.set(box, {high:high.value, low:low.value, temp:temp.value, tempLabel:temp.label, tempDetail:temp.detail, swell:swell.value, swellDetail:swell.detail,
