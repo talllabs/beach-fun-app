@@ -1,0 +1,221 @@
+{
+ "month": "2026-10",
+ "records": [
+  {
+   "date": "2026-10-20",
+   "beach": "carlsbad",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 20.8,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Carlsbad, Encina Creek outlet",
+    "kind": "nearby",
+    "miles": 3.3
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "dana-point-harbor",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 48.3,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Dana Point Harbor, Harbor Patrol Dock",
+    "kind": "local",
+    "miles": 0.3
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "doheny",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 48,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "Doheny State Beach - Mid Beach",
+    "kind": "local",
+    "miles": 0
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "huntington",
+   "temp": {
+    "value": 72.1,
+    "station": "Santa Monica",
+    "miles": 37.5,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A",
+    "sampled": "2026-10-16",
+    "station": "Huntington City Beach - Huntington Street",
+    "kind": "local",
+    "miles": 0.5
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "laguna",
+   "temp": {
+    "value": 72.1,
+    "station": "Santa Monica",
+    "miles": 52.1,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Laguna Beach- Laguna Main Beach",
+    "kind": "local",
+    "miles": 0.1
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "monarch",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 50.6,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Monarch Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "newport",
+   "temp": {
+    "value": 72.1,
+    "station": "Santa Monica",
+    "miles": 42.9,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "B",
+    "sampled": "2026-10-16",
+    "station": "Balboa Beach- Balboa Pier, upcoast side",
+    "kind": "nearby",
+    "miles": 1.6
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "salt-creek",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 50,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Salt Creek County Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "san-clemente",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 43.6,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "San Clemente Pier drain (Point Zero)",
+    "kind": "local",
+    "miles": 0
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "san-onofre",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 39.3,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": null,
+    "sampled": null,
+    "station": "San Onofre State Beach, Trestles San Mateo Crk",
+    "kind": "nearby",
+    "miles": 1.9
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "strands",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 49.4,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-09",
+    "station": "Dana Point - Dana Strands Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "beach": "trestles",
+   "temp": {
+    "value": 71.8,
+    "station": "La Jolla",
+    "miles": 40.5,
+    "observed": "2026-10-20T17:18:00.000Z",
+    "regional": true
+   },
+   "grade": {
+    "grade": null,
+    "sampled": null,
+    "station": "San Onofre State Beach, Trestles San Mateo Crk",
+    "kind": "local",
+    "miles": 0.4
+   }
+  }
+ ]
+}
