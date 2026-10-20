@@ -4,11 +4,14 @@
     {
       "id": "huntington",
       "name": "Huntington Beach",
-      "latitude": 33.655,
+      "latitude": 33.6553,
+      "longitude": -118.0034,
+      "facing": 214,
       "area": "The iconic pier & wide-open sand",
       "drive": "About 40\u201355 min north",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
+      "qualityStation": "147",
+      "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
         {
           "id": "hb-pier",
@@ -20,21 +23,45 @@
           "status": "enabled",
           "note": "Public pier camera \u00b7 YouTube may show ads"
         }
-      ],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15",
-      "qualityStation": "147",
-      "qualityStationName": "Huntington City Beach - Huntington Street"
+      ]
+    },
+    {
+      "id": "newport",
+      "name": "Newport Beach",
+      "latitude": 33.6073,
+      "longitude": -117.9297,
+      "facing": 215,
+      "area": "Two piers & a classic boardwalk",
+      "drive": "About 25\u201335 min north",
+      "qualityStation": "156",
+      "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
+    },
+    {
+      "id": "laguna",
+      "name": "Laguna Beach",
+      "latitude": 33.5427,
+      "longitude": -117.7854,
+      "facing": 235,
+      "area": "Main Beach, coves & tide pools",
+      "drive": "About 20 min north",
+      "qualityStation": "210",
+      "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
     },
     {
       "id": "monarch",
       "name": "Monarch Bay",
-      "latitude": 33.483,
+      "latitude": 33.4829,
+      "longitude": -117.729,
+      "facing": 230,
       "area": "A quiet corner of Dana Point",
       "drive": "About 10 min north",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
+      "qualityStation": "2196",
+      "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
         {
           "id": "monarch-bay",
@@ -46,21 +73,43 @@
           "status": "blocked",
           "note": "Free to view \u00b7 provider currently blocks outside embeds"
         }
-      ],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15",
-      "qualityStation": "2196",
-      "qualityStationName": "Monarch Beach"
+      ]
     },
     {
-      "id": "dana-point",
-      "name": "Dana Point",
-      "latitude": 33.462,
-      "area": "Harbor days & coastal views",
+      "id": "salt-creek",
+      "name": "Salt Creek",
+      "latitude": 33.4766,
+      "longitude": -117.7238,
+      "facing": 240,
+      "area": "Surf, bluffs & sunset walks",
+      "drive": "About 5\u201310 min north",
+      "qualityStation": "255",
+      "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
+    },
+    {
+      "id": "strands",
+      "name": "Strands Beach",
+      "latitude": 33.4706,
+      "longitude": -117.7157,
+      "facing": 225,
+      "area": "A long sandy cove below the bluff trail",
+      "drive": "About 5 min north",
+      "qualityUrl": "https://beachreportcard.org/33.4706/-117.7157/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
+    },
+    {
+      "id": "dana-point-harbor",
+      "name": "Dana Point Harbor",
+      "latitude": 33.46,
+      "longitude": -117.6985,
+      "facing": 180,
+      "area": "Harbor days & calm water",
       "drive": "Your home stretch",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
+      "qualityUrl": "https://beachreportcard.org/33.46/-117.6985/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
         {
           "id": "dana-harbor",
@@ -71,7 +120,21 @@
           "sourceUrl": "https://hdontap.com/stream/994481/dana-point-harbor-laguna-cliffs-resort-live-webcam/",
           "status": "blocked",
           "note": "Harbor view \u00b7 provider blocks outside embeds"
-        },
+        }
+      ]
+    },
+    {
+      "id": "doheny",
+      "name": "Doheny State Beach",
+      "latitude": 33.4612,
+      "longitude": -117.687,
+      "facing": 200,
+      "area": "Gentle waves by the San Juan Creek mouth",
+      "drive": "Your home stretch",
+      "qualityStation": "228",
+      "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": [
         {
           "id": "doheny-hammer",
           "name": "Doheny - The Hammer",
@@ -112,21 +175,19 @@
           "status": "blocked",
           "note": "Free to view on Surfline \u00b7 tap to watch"
         }
-      ],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15",
-      "qualityStation": "228",
-      "qualityStationName": "Doheny State Beach - Mid Beach"
+      ]
     },
     {
       "id": "san-clemente",
       "name": "San Clemente",
-      "latitude": 33.419,
+      "latitude": 33.4192,
+      "longitude": -117.6205,
+      "facing": 240,
       "area": "The pier, the surf, the Spanish Village",
       "drive": "About 15 min south",
-      "tideStation": "9410230",
-      "tideStationName": "La Jolla",
+      "qualityStation": "1051",
+      "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
         {
           "id": "sc-pier",
@@ -158,21 +219,43 @@
           "status": "enabled",
           "note": "Surfline HD cam \u00b7 if the picture stays blank, tap \u201cBlank or frozen?\u201d"
         }
-      ],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15",
-      "qualityStation": "1051",
-      "qualityStationName": "San Clemente Pier, Point Zero"
+      ]
+    },
+    {
+      "id": "trestles",
+      "name": "Trestles",
+      "latitude": 33.3826,
+      "longitude": -117.5889,
+      "facing": 215,
+      "area": "World-famous surf at San Mateo Creek",
+      "drive": "About 20 min south",
+      "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
+    },
+    {
+      "id": "san-onofre",
+      "name": "San Onofre State Beach",
+      "latitude": 33.3735,
+      "longitude": -117.5655,
+      "facing": 220,
+      "area": "Old-school surf & wide-open shoreline",
+      "drive": "About 25 min south",
+      "qualityUrl": "https://beachreportcard.org/33.3735/-117.5655/15",
+      "advisoryUrl": "https://ocbeachinfo.com/",
+      "cams": []
     },
     {
       "id": "carlsbad",
       "name": "Carlsbad",
       "latitude": 33.158,
+      "longitude": -117.351,
+      "facing": 260,
       "area": "Long beaches, easy afternoons",
       "drive": "About 40\u201355 min south",
-      "tideStation": "9410230",
-      "tideStationName": "La Jolla",
+      "qualityStation": "285",
+      "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15",
+      "advisoryUrl": "https://www.sdbeachinfo.com/",
       "cams": [
         {
           "id": "carlsbad-surf",
@@ -194,72 +277,7 @@
           "status": "blocked",
           "note": "Free to view \u00b7 provider currently blocks outside embeds"
         }
-      ],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15",
-      "qualityStation": "285",
-      "qualityStationName": "Carlsbad, Encina Creek outlet"
-    },
-    {
-      "id": "newport",
-      "name": "Newport Beach",
-      "latitude": 33.6073,
-      "area": "Two piers & a classic boardwalk",
-      "drive": "About 25\u201335 min north",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
-      "cams": [],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15",
-      "qualityStation": "156",
-      "qualityStationName": "Balboa Pier, upcoast"
-    },
-    {
-      "id": "laguna",
-      "name": "Laguna Beach",
-      "latitude": 33.5427,
-      "area": "Main Beach, coves & tide pools",
-      "drive": "About 20 min north",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
-      "cams": [],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15",
-      "qualityStation": "210",
-      "qualityStationName": "Laguna Main Beach"
-    },
-    {
-      "id": "salt-creek",
-      "name": "Salt Creek & Strands",
-      "latitude": 33.4766,
-      "area": "Surf, bluffs & sunset walks",
-      "drive": "About 5\u201310 min north",
-      "tideStation": "9410580",
-      "tideStationName": "Newport Bay entrance",
-      "cams": [],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15",
-      "qualityStation": "255",
-      "qualityStationName": "Salt Creek County Beach"
-    },
-    {
-      "id": "san-onofre",
-      "name": "San Onofre / Trestles",
-      "latitude": 33.3826,
-      "area": "Old-school surf & wide-open shoreline",
-      "drive": "About 20\u201325 min south",
-      "tideStation": "9410230",
-      "tideStationName": "La Jolla",
-      "cams": [],
-      "temperatureStation": "9410230",
-      "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15",
-      "qualityStation": "241",
-      "qualityStationName": "San Clemente State Beach - Avenida Calafia (nearest station)"
+      ]
     }
   ]
 }
