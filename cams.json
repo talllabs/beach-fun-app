@@ -23,7 +23,9 @@
       ],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15"
+      "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15",
+      "qualityStation": "147",
+      "qualityStationName": "Huntington City Beach - Huntington Street"
     },
     {
       "id": "monarch",
@@ -47,7 +49,9 @@
       ],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15"
+      "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15",
+      "qualityStation": "2196",
+      "qualityStationName": "Monarch Beach"
     },
     {
       "id": "dana-point",
@@ -111,7 +115,9 @@
       ],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15"
+      "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15",
+      "qualityStation": "228",
+      "qualityStationName": "Doheny State Beach - Mid Beach"
     },
     {
       "id": "san-clemente",
@@ -155,7 +161,9 @@
       ],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15"
+      "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15",
+      "qualityStation": "1051",
+      "qualityStationName": "San Clemente Pier, Point Zero"
     },
     {
       "id": "carlsbad",
@@ -189,7 +197,9 @@
       ],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15"
+      "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15",
+      "qualityStation": "285",
+      "qualityStationName": "Carlsbad, Encina Creek outlet"
     },
     {
       "id": "newport",
@@ -202,7 +212,9 @@
       "cams": [],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15"
+      "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15",
+      "qualityStation": "156",
+      "qualityStationName": "Balboa Pier, upcoast"
     },
     {
       "id": "laguna",
@@ -215,7 +227,9 @@
       "cams": [],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15"
+      "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15",
+      "qualityStation": "210",
+      "qualityStationName": "Laguna Main Beach"
     },
     {
       "id": "salt-creek",
@@ -228,7 +242,9 @@
       "cams": [],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15"
+      "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15",
+      "qualityStation": "255",
+      "qualityStationName": "Salt Creek County Beach"
     },
     {
       "id": "san-onofre",
@@ -241,7 +257,9 @@
       "cams": [],
       "temperatureStation": "9410230",
       "temperatureStationName": "La Jolla (regional reading)",
-      "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15"
+      "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15",
+      "qualityStation": "241",
+      "qualityStationName": "San Clemente State Beach - Avenida Calafia (nearest station)"
     }
   ]
 }

@@ -104,6 +104,7 @@ Each item under `beaches` has:
 - `tideStation` and `tideStationName`: NOAA prediction station and visible attribution.
 - `temperatureStation` and `temperatureStationName`: NOAA observation station and visible attribution.
 - `qualityUrl`: optional link to the beach's Heal the Bay Beach Report Card page (`https://beachreportcard.org/LATITUDE/LONGITUDE/15`). It shows as a **Water quality** link next to the tides.
+- `qualityStation` and `qualityStationName`: the Heal the Bay station `_id` from `https://admin.beachreportcard.org/api/locations/` and its visible name. The app shows that station's `dry_grade` and `grade_updated` date, or **No recent test**.
 - `cams`: camera entries for that beach. Use `[]` for a beach with no camera; it still shows tides, water temperature and water quality.
 
 A camera looks like this:

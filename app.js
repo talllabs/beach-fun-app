@@ -1,4 +1,4 @@
-import { nextTides, pacificTime, utcDate } from './conditions.js';
+import { nextTides, pacificTime, utcDate, waterGrade, testedDate } from './conditions.js';
 const beachRoot = document.querySelector('#beaches');
 const nav = document.querySelector('#beach-links');
 const announce = text => document.querySelector('#announcement').textContent = text;
@@ -207,6 +207,43 @@ async function conditions(beach, box) {
   } else water.textContent='Unavailable';
   note.textContent=`Tides: ${beach.tideStationName} (nearby station) · ${tempNote} · Pacific time · Checked ${pacificTime(new Date())}`;
 }
+const GRADE_KEY = 'beach-cams-grades';
+const GRADE_TTL = 3600000;
+let gradeRequest;
+// One shared request for all beaches; reused (memory, then localStorage) for about an hour.
+function healTheBay() {
+  if (gradeRequest && Date.now() - gradeRequest.at < GRADE_TTL) return gradeRequest.promise;
+  const ids = new Set(config.beaches.map(b => b.qualityStation).filter(Boolean));
+  const promise = (async () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(GRADE_KEY));
+      if (saved && Date.now() - saved.at < GRADE_TTL && ids.size && [...ids].every(id => id in saved.items)) return saved.items;
+    } catch { /* storage unavailable */ }
+    const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch('https://admin.beachreportcard.org/api/locations/', {signal:controller.signal});
+      if (!response.ok) throw new Error('Heal the Bay unavailable');
+      const list = await response.json(); if (!Array.isArray(list)) throw new Error('Unexpected Heal the Bay data');
+      const items = Object.fromEntries([...ids].map(id => [id, null]));
+      for (const item of list) if (ids.has(String(item?._id))) {
+        const s = item._source || {}; items[String(item._id)] = {dry_grade:s.dry_grade, grade_updated:s.grade_updated, title:s.title};
+      }
+      try { localStorage.setItem(GRADE_KEY, JSON.stringify({at:Date.now(), items})); } catch { /* storage full or blocked */ }
+      return items;
+    } finally { clearTimeout(timer); }
+  })();
+  gradeRequest = {at:Date.now(), promise};
+  promise.catch(() => { if (gradeRequest?.promise === promise) gradeRequest = undefined; });
+  return promise;
+}
+async function waterQuality(beach, box) {
+  const value = box.querySelector('[data-grade]'); if (!value) return;
+  let item;
+  try { item = (await healTheBay())[beach.qualityStation]; } catch { /* show the fallback below */ }
+  const grade = waterGrade(item), date = testedDate(item?.grade_updated);
+  value.textContent = grade ? (date ? `${grade} · Tested ${date}` : grade) : 'No recent test';
+  value.dataset.level = grade ? ({A:'good',B:'fair',C:'fair'}[grade[0]] || 'poor') : 'none';
+}
 function render(data) {
   beachRoot.replaceChildren(); nav.replaceChildren();
   const beaches = [...data.beaches].sort((a,b)=>b.latitude-a.latitude);
@@ -221,15 +258,15 @@ function render(data) {
       const metric=el('div','metric'); const text=el('div'); const value=el('strong','','Loading…'); value.dataset[attribute]=''; text.append(el('small','',label),value);metric.append(el('span','metric-icon',icon),text);box.append(metric);
     }
     if (beach.qualityUrl) {
-      // Heal the Bay has no public data feed, so link to the beach's grade page.
-      const metric=el('div','metric'); const text=el('div'); const link=el('a','','Heal the Bay grade ↗');
-      link.href=safeURL(beach.qualityUrl); link.target='_blank'; link.rel='noopener'; link.setAttribute('aria-label',`Water quality grade for ${beach.name} at Heal the Bay`);
-      text.append(el('small','','WATER QUALITY'),link); metric.append(el('span','metric-icon','✓'),text); box.append(metric);
+      const metric=el('div','metric quality'); const text=el('div'); const grade=el('strong','grade','Checking…'); grade.dataset.grade='';
+      const link=el('a','','Heal the Bay ↗');
+      link.href=safeURL(beach.qualityUrl); link.target='_blank'; link.rel='noopener'; link.setAttribute('aria-label',`Water quality report for ${beach.name} at Heal the Bay`);
+      text.append(el('small','','WATER QUALITY'),grade,el('span','quality-station',beach.qualityStationName||''),link); metric.append(el('span','metric-icon','✓'),text); box.append(metric);
     }
     box.append(el('div','station-note','NOAA nearby station data · Pacific time'));
     const cams=el('div','cams');for(const cam of beach.cams){cams.append(card(cam));count++;}
     if(!beach.cams.length) cams.append(el('p','no-cam','No camera here yet. Tides, water temperature and the water quality link still work.'));
-    section.append(head,box,cams);beachRoot.append(section); conditions(beach,box);
+    section.append(head,box,cams);beachRoot.append(section); conditions(beach,box); waterQuality(beach,box);
   }
   document.querySelector('#cam-count').textContent=`${beaches.length} coastal stops · ${count} camera views`;
   const sectionObserver=new IntersectionObserver(entries=>{
@@ -241,7 +278,7 @@ function render(data) {
 }
 document.querySelector('#refresh-all').addEventListener('click',()=>{
   states.forEach(refresh); requestCache.clear();
-  config?.beaches.forEach(beach=>conditions(beach,document.getElementById(beach.id).querySelector('.conditions')));
+  config?.beaches.forEach(beach=>{const box=document.getElementById(beach.id).querySelector('.conditions');conditions(beach,box);waterQuality(beach,box);});
   announce('Visible cameras and NOAA conditions refreshed. Other cameras connect when you scroll to them.');
 });
 document.addEventListener('visibilitychange',()=>{states.forEach(state=>{if(document.hidden)idle(state);else start(state);});});
@@ -257,7 +294,7 @@ try {
   finally { clearTimeout(timeout); }
   if(!response.ok)throw new Error('Camera list unavailable');
   config=await response.json(); render(config); beachRoot.dataset.ready = 'true';
-  setInterval(()=>{if(!document.hidden){requestCache.clear();config.beaches.forEach(b=>conditions(b,document.getElementById(b.id).querySelector('.conditions')));}},600000);
+  setInterval(()=>{if(!document.hidden){requestCache.clear();config.beaches.forEach(b=>{const box=document.getElementById(b.id).querySelector('.conditions');conditions(b,box);waterQuality(b,box);});}},600000);
 } catch(error) {
   beachRoot.dataset.ready = 'error';
   beachRoot.replaceChildren(el('p','','Couldn’t load the camera list. Check your connection and reload. If you’re opening a local file, use the preview instructions in README.md.'));
