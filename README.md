@@ -150,6 +150,13 @@ Each beach finds its own sources from its coordinates:
 
 Station lists are cached for a day and conditions refresh every ten minutes while the page is visible. This is a beach viewing app, not a navigation or ocean safety forecast.
 
+## Drive times from the visitor's location
+
+“Drive times from my location” asks for the browser's location only after a tap. It rounds it to about 100 m, sends it to a routing service, and never stores it. Times refresh every 10 minutes. Every drive pill also opens Google Maps (Apple Maps on iPhone) with live-traffic directions.
+
+- **Live traffic (Mapbox):** create a free account at <https://account.mapbox.com/>, copy your **default public token** (it starts with `pk.`), and paste it into `mapboxToken` at the top of `cams.json`. Public tokens are designed to be visible in websites. In the Mapbox token settings, add your site's address under **URL restrictions** so nobody else can use it.
+- **Without a token**, the app uses the free OSRM demo server for a no-traffic estimate labeled “est.”.
+
 ## History and archive
 
 `.github/workflows/record-history.yml` runs `scripts/record-history.mjs` every morning (and on demand from the Actions tab). It saves each beach's water temperature and latest grade to `data/history/YYYY-MM.json` and lists the months in `data/history/index.json`. Running it twice on the same day replaces that day's readings; nothing older is deleted. Each beach's **History** panel draws the temperature line, the daily grade strip and a table from these files.

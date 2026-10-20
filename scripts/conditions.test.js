@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {nextTides,pacificTime,utcDate,waterGrade,testedDate,distanceMiles,qualityMatch,shortStationName,windRelation,compass,dayparts,ageText,gradeLevel} from '../conditions.js';
+import {nextTides,pacificTime,utcDate,waterGrade,testedDate,distanceMiles,qualityMatch,shortStationName,windRelation,compass,dayparts,ageText,gradeLevel,driveText,chunks,roundedOrigin} from '../conditions.js';
 import {readFileSync} from 'node:fs';
 test('next tides skip past events and select each type across UTC midnight',()=>{
  const next=nextTides([{t:'2026-10-16 19:18',type:'H'},{t:'2026-10-17 04:08',type:'L'},{t:'2026-10-17 20:32',type:'H'}],new Date('2026-10-16T20:00:00Z'));
@@ -46,4 +46,9 @@ test('freshness and grade levels',()=>{
  const now=new Date('2026-10-20T16:00:00Z');
  assert.equal(ageText(new Date('2026-10-20T15:30:00Z'),now),'30 min ago'); assert.equal(ageText(new Date('2026-10-16T12:00:00Z'),now),'4 days ago');
  assert.equal(gradeLevel('A+'),'good'); assert.equal(gradeLevel('C'),'fair'); assert.equal(gradeLevel('F'),'poor');
+});
+test('drive time text, request groups and rounded location',()=>{
+ assert.equal(driveText(1090),'18 min drive'); assert.equal(driveText(3900),'1 hr 5 min drive'); assert.equal(driveText(3600),'1 hr drive'); assert.equal(driveText(20),'1 min drive'); assert.equal(driveText(undefined),'');
+ assert.deepEqual(chunks([1,2,3,4,5],2),[[1,2],[3,4],[5]]);
+ assert.deepEqual(roundedOrigin({latitude:33.467891,longitude:-117.698456}),{lat:33.468,lng:-117.698});
 });

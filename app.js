@@ -1,6 +1,7 @@
 import { pacificTime, waterGrade, testedDate, distanceMiles, miles, qualityMatch, shortStationName, ageText, sampleDay, compass, windRelation, dayparts, gradeLevel } from './conditions.js';
 import { noaaStations, tidesFor, waterTempFor, healTheBayLocations, marineForecast, windForecast } from './sources.js';
 import { historyPanel } from './history.js';
+import { drivePill, setupDrive, refreshDrive } from './drive.js';
 const beachRoot = document.querySelector('#beaches');
 const nav = document.querySelector('#beach-links');
 const announce = text => document.querySelector('#announcement').textContent = text;
@@ -290,7 +291,7 @@ function render(data) {
     const link=el('a','',beach.name); link.href=`#${beach.id}`; nav.append(link);
     const section=el('section','beach'); section.id=beach.id; section.setAttribute('aria-labelledby',`${beach.id}-title`);
     const head=el('div','beach-head'); const title=el('div','beach-title'); const titleText=el('div'); const heading=el('h2','',beach.name); heading.id=`${beach.id}-title`;
-    titleText.append(heading,el('p','',beach.area)); title.append(el('span','beach-number',String(index+1).padStart(2,'0')),titleText); head.append(title,el('span','drive',beach.drive));
+    titleText.append(heading,el('p','',beach.area)); title.append(el('span','beach-number',String(index+1).padStart(2,'0')),titleText); head.append(title,drivePill(beach));
     const box=buildConditions(beach);
     const cams=el('div','cams');for(const cam of beach.cams){cams.append(card(cam));count++;}
     if(!beach.cams.length) cams.append(el('p','no-cam','No camera here yet. Tides, water temperature, forecasts and water quality still update.'));
@@ -309,7 +310,7 @@ function refreshConditions() {
   config.beaches.forEach(b => { const box = document.getElementById(b.id).querySelector('.conditions'); conditions(b, box); waterQuality(b, box); });
 }
 document.querySelector('#refresh-all').addEventListener('click',()=>{
-  states.forEach(refresh); if (config) refreshConditions();
+  states.forEach(refresh); if (config) { refreshConditions(); refreshDrive(); }
   announce('Visible cameras and conditions refreshed. Each reading still shows when it was measured. Other cameras connect when you scroll to them.');
 });
 document.addEventListener('visibilitychange',()=>{states.forEach(state=>{if(document.hidden)idle(state);else start(state);});});
@@ -324,7 +325,7 @@ try {
   try { response = await fetch('./cams.json', {cache:'no-store', signal:controller.signal}); }
   finally { clearTimeout(timeout); }
   if(!response.ok)throw new Error('Camera list unavailable');
-  config=await response.json(); render(config); beachRoot.dataset.ready = 'true';
+  config=await response.json(); render(config); setupDrive(config); beachRoot.dataset.ready = 'true';
   setInterval(()=>{if(!document.hidden)refreshConditions();},600000);
 } catch(error) {
   beachRoot.dataset.ready = 'error';

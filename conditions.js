@@ -87,3 +87,12 @@ export function dayparts(marineHourly, windHourly, day) {
   return {morning: part(6, 11), afternoon: part(12, 17)};
 }
 export function gradeLevel(grade) { return {A:'good', B:'fair', C:'fair'}[String(grade)[0]] || 'poor'; }
+// ---- Drive times ----
+export function driveText(seconds) {
+  if (!Number.isFinite(seconds)) return '';
+  const minutes = Math.max(1, Math.round(seconds / 60));
+  return minutes < 60 ? `${minutes} min drive` : `${Math.floor(minutes / 60)} hr ${minutes % 60 ? `${minutes % 60} min ` : ''}drive`;
+}
+export function chunks(list, size) { const out = []; for (let i = 0; i < list.length; i += size) out.push(list.slice(i, i + size)); return out; }
+// Rounded to ~100 m before leaving the device; precise location is never sent or stored.
+export function roundedOrigin(coords) { return {lat:Math.round(coords.latitude * 1000) / 1000, lng:Math.round(coords.longitude * 1000) / 1000}; }
