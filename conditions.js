@@ -34,14 +34,29 @@ export function byDistance(beach, stations) {
     .map(s => ({...s, miles:distanceMiles(here, s)})).sort((a,b) => a.miles - b.miles);
 }
 export function miles(value) { return value < 0.1 ? 'under 0.1 mi' : `${value < 10 ? value.toFixed(1) : Math.round(value)} mi`; }
-// Water quality stations: a pinned id wins if it is still close; otherwise the nearest active station.
-export const LOCAL_SAMPLE_MILES = 0.5, NEARBY_SAMPLE_MILES = 4;
-export function qualityMatch(beach, locations) {
+// Water quality stations. Preference order:
+// 1. the beach's preferred stations (qualityStations), first one with a recent grade;
+// 2. the nearest ocean-facing station with a recent grade (harbor/creek/drain names are
+//    skipped unless the beach itself is a harbor);
+// 3. the nearest ocean-facing station, even without a recent grade ("No recent test").
+export const LOCAL_SAMPLE_MILES = 0.5, NEARBY_SAMPLE_MILES = 4, RECENT_GRADE_DAYS = 30;
+const INLAND = /\b(harbou?r|bay|slough|marina|dock|channel|creek|drain|outlet)\b/i;
+export function oceanFacing(title) { return !INLAND.test(String(title || '')); }
+export function recentGrade(station, now = new Date()) {
+  const sampled = sampleDay(station?.grade_updated);
+  return Boolean(waterGrade(station) && sampled && now - sampled <= RECENT_GRADE_DAYS * 86400000);
+}
+export function qualityMatch(beach, locations, now = new Date()) {
   const ranked = byDistance(beach, locations.filter(l => l.active !== false));
-  const pinned = beach.qualityStation && ranked.find(l => String(l.id) === String(beach.qualityStation));
-  const station = pinned || ranked[0];
-  if (!station || station.miles > NEARBY_SAMPLE_MILES) return {kind:'none', station};
-  return {kind: station.miles <= LOCAL_SAMPLE_MILES ? 'local' : 'nearby', station};
+  const kind = station => station.miles <= LOCAL_SAMPLE_MILES ? 'local' : 'nearby';
+  for (const id of [].concat(beach.qualityStations || [])) {
+    const station = ranked.find(l => l.id === String(id));
+    if (station && recentGrade(station, now)) return {kind:kind(station), station, preferred:true};
+  }
+  const suitable = ranked.filter(l => beach.harbor || oceanFacing(l.title)).filter(l => l.miles <= NEARBY_SAMPLE_MILES);
+  const station = suitable.find(l => recentGrade(l, now)) || suitable[0];
+  if (!station) return {kind:'none', station:ranked.find(l => beach.harbor || oceanFacing(l.title))};
+  return {kind:kind(station), station};
 }
 export function shortStationName(title = '') {
   return String(title).split(/\s+-\s+/).pop().trim() || String(title);
@@ -81,9 +96,43 @@ export function dayparts(marineHourly, windHourly, day) {
   const pick = (hourly, key, from, to) => (hourly?.time || []).map((t,i)=>[t,hourly[key]?.[i]])
     .filter(([t]) => t.startsWith(day) && +t.slice(11,13) >= from && +t.slice(11,13) <= to).map(([,v]) => v);
   const part = (from, to) => ({
-    swell: average(pick(marineHourly,'swell_wave_height',from,to)), period: average(pick(marineHourly,'swell_wave_period',from,to)),
+    swell: average(pick(marineHourly,'swell_wave_height',from,to)), period: average(pick(marineHourly,'swell_wave_period',from,to)), swellFrom: circularAverage(pick(marineHourly,'swell_wave_direction',from,to)),
     wind: average(pick(windHourly,'wind_speed_10m',from,to)), windFrom: circularAverage(pick(windHourly,'wind_direction_10m',from,to))
   });
   return {morning: part(6, 11), afternoon: part(12, 17)};
 }
 export function gradeLevel(grade) { return {A:'good', B:'fair', C:'fair'}[String(grade)[0]] || 'poor'; }
+// ---- Drive times ----
+export function driveText(seconds) {
+  if (!Number.isFinite(seconds)) return '';
+  const minutes = Math.max(1, Math.round(seconds / 60));
+  return minutes < 60 ? `${minutes} min drive` : `${Math.floor(minutes / 60)} hr ${minutes % 60 ? `${minutes % 60} min ` : ''}drive`;
+}
+export function chunks(list, size) { const out = []; for (let i = 0; i < list.length; i += size) out.push(list.slice(i, i + size)); return out; }
+// Rounded to ~100 m before leaving the device; precise location is never sent or stored.
+export function roundedOrigin(coords) { return {lat:Math.round(coords.latitude * 1000) / 1000, lng:Math.round(coords.longitude * 1000) / 1000}; }
+// ---- Surf estimate ----
+// Turns model offshore swell into a rough breaking height for one beach:
+// swell height x direction (how squarely the swell hits the beach's facing) x period
+// (longer swells build more as they shoal) x the beach's exposure (0 sheltered ... 1 open).
+export function surfEstimate({height, period, direction}, facing, exposure = 1) {
+  if (![height, period, direction, facing].every(Number.isFinite)) return null;
+  const diff = Math.abs(((direction - facing) % 360 + 540) % 360 - 180);
+  const aim = diff >= 110 ? 0.1 : 0.2 + 0.8 * Math.max(0, Math.cos(diff * Math.PI / 180));
+  const build = Math.min(1.4, Math.max(0.8, 0.6 + 0.045 * period));
+  return Math.max(0, height * aim * build * exposure);
+}
+export function surfRange(feet) {
+  if (!Number.isFinite(feet)) return '';
+  if (feet < 0.5) return 'Flat';
+  const lo = Math.max(feet < 1.5 ? 0 : 1, Math.round(feet - 0.5)), hi = Math.max(lo + 1, Math.round(feet + 0.5));
+  return lo === 0 ? `Up to ${hi} ft` : `${lo}–${hi} ft`;
+}
+// A short word from the wind relative to this beach (never a safety rating).
+export function surfQuality(relation, mph, feet) {
+  if (!Number.isFinite(feet) || feet < 0.5) return 'Flat';
+  if (!Number.isFinite(mph) || !relation) return '';
+  if (mph < 5 || relation === 'Offshore') return 'Clean';
+  if (relation === 'Cross-shore') return mph < 12 ? 'Fair' : 'Choppy';
+  return mph < 8 ? 'Fair' : 'Choppy';
+}

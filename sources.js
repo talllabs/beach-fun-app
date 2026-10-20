@@ -1,6 +1,6 @@
 // Data sources shared by the app (browser) and scripts/record-history.mjs (Node).
 // Every function returns plain data and never touches the page.
-import { byDistance, nextTides, utcDate } from './conditions.js';
+import { byDistance, nextTides, utcDate, chunks } from './conditions.js';
 
 const NOAA = 'https://api.tidesandcurrents.noaa.gov';
 export const TEMP_MAX_AGE = 3 * 3600000;
@@ -66,8 +66,9 @@ export async function healTheBayLocations() {
 const list = (beaches, key) => beaches.map(b => b[key]).join(',');
 export async function marineForecast(beaches) {
   const query = new URLSearchParams({latitude:list(beaches,'latitude'), longitude:list(beaches,'longitude'),
-    current:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction',
-    hourly:'swell_wave_height,swell_wave_period', length_unit:'imperial', cell_selection:'sea', timezone:'America/Los_Angeles', forecast_days:'1'});
+    current:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction,sea_surface_temperature',
+    hourly:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction', temperature_unit:'fahrenheit', length_unit:'imperial',
+    cell_selection:'sea', timezone:'America/Los_Angeles', forecast_days:'1'});
   const data = await getJSON(`https://marine-api.open-meteo.com/v1/marine?${query}`);
   return Array.isArray(data) ? data : [data];
 }
@@ -77,4 +78,22 @@ export async function windForecast(beaches) {
     wind_speed_unit:'mph', timezone:'America/Los_Angeles', forecast_days:'1'});
   const data = await getJSON(`https://api.open-meteo.com/v1/forecast?${query}`);
   return Array.isArray(data) ? data : [data];
+}
+
+// Drive times from one origin to every beach. Mapbox's driving-traffic profile uses live
+// traffic (max 10 coordinates per request, so beaches go in groups of 9). Without a token,
+// the public OSRM demo server gives a no-traffic estimate.
+export async function driveTimes(origin, beaches, mapboxToken) {
+  const traffic = Boolean(mapboxToken);
+  const groups = traffic ? chunks(beaches, 9) : [beaches];
+  const results = await Promise.all(groups.map(async group => {
+    const coords = [origin, ...group.map(b => ({lat:b.latitude, lng:b.longitude}))].map(c => `${c.lng},${c.lat}`).join(';');
+    const url = traffic
+      ? `https://api.mapbox.com/directions-matrix/v1/mapbox/driving-traffic/${coords}?sources=0&annotations=duration,distance&access_token=${encodeURIComponent(mapboxToken)}`
+      : `https://router.project-osrm.org/table/v1/driving/${coords}?sources=0&annotations=duration,distance`;
+    const data = await getJSON(url);
+    if (data.code !== 'Ok') throw new Error(data.message || data.code || 'No route');
+    return group.map((_, i) => ({seconds:data.durations?.[0]?.[i + 1], meters:data.distances?.[0]?.[i + 1]}));
+  }));
+  return {traffic, provider:traffic ? 'Mapbox live traffic' : 'OSRM, no live traffic', times:results.flat()};
 }

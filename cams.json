@@ -1,4 +1,5 @@
 {
+  "mapboxToken": "",
   "updated": "2026-10-20",
   "beaches": [
     {
@@ -7,9 +8,12 @@
       "latitude": 33.6553,
       "longitude": -118.0034,
       "facing": 214,
+      "exposure": 1.0,
+      "qualityStations": [
+        "147"
+      ],
       "area": "The iconic pier & wide-open sand",
       "drive": "About 40\u201355 min north",
-      "qualityStation": "147",
       "qualityUrl": "https://beachreportcard.org/33.6553/-118.0034/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
@@ -31,9 +35,12 @@
       "latitude": 33.6073,
       "longitude": -117.9297,
       "facing": 215,
+      "exposure": 0.9,
+      "qualityStations": [
+        "155"
+      ],
       "area": "Two piers & a classic boardwalk",
       "drive": "About 25\u201335 min north",
-      "qualityStation": "156",
       "qualityUrl": "https://beachreportcard.org/33.6073/-117.9297/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": []
@@ -44,9 +51,12 @@
       "latitude": 33.5427,
       "longitude": -117.7854,
       "facing": 235,
+      "exposure": 0.75,
+      "qualityStations": [
+        "210"
+      ],
       "area": "Main Beach, coves & tide pools",
       "drive": "About 20 min north",
-      "qualityStation": "210",
       "qualityUrl": "https://beachreportcard.org/33.5427/-117.7854/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": []
@@ -57,9 +67,12 @@
       "latitude": 33.4829,
       "longitude": -117.729,
       "facing": 230,
+      "exposure": 0.7,
+      "qualityStations": [
+        "2196"
+      ],
       "area": "A quiet corner of Dana Point",
       "drive": "About 10 min north",
-      "qualityStation": "2196",
       "qualityUrl": "https://beachreportcard.org/33.4829/-117.729/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
@@ -81,9 +94,12 @@
       "latitude": 33.4766,
       "longitude": -117.7238,
       "facing": 240,
+      "exposure": 1.0,
+      "qualityStations": [
+        "255"
+      ],
       "area": "Surf, bluffs & sunset walks",
       "drive": "About 5\u201310 min north",
-      "qualityStation": "255",
       "qualityUrl": "https://beachreportcard.org/33.4766/-117.7238/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": []
@@ -94,6 +110,7 @@
       "latitude": 33.4706,
       "longitude": -117.7157,
       "facing": 225,
+      "exposure": 0.9,
       "area": "A long sandy cove below the bluff trail",
       "drive": "About 5 min north",
       "qualityUrl": "https://beachreportcard.org/33.4706/-117.7157/15",
@@ -106,6 +123,8 @@
       "latitude": 33.46,
       "longitude": -117.6985,
       "facing": 180,
+      "exposure": 0.05,
+      "harbor": true,
       "area": "Harbor days & calm water",
       "drive": "Your home stretch",
       "qualityUrl": "https://beachreportcard.org/33.46/-117.6985/15",
@@ -129,9 +148,12 @@
       "latitude": 33.4612,
       "longitude": -117.687,
       "facing": 200,
+      "exposure": 0.45,
+      "qualityStations": [
+        "228"
+      ],
       "area": "Gentle waves by the San Juan Creek mouth",
       "drive": "Your home stretch",
-      "qualityStation": "228",
       "qualityUrl": "https://beachreportcard.org/33.4612/-117.687/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
@@ -183,9 +205,13 @@
       "latitude": 33.4192,
       "longitude": -117.6205,
       "facing": 240,
+      "exposure": 0.9,
+      "qualityStations": [
+        "240",
+        "535"
+      ],
       "area": "The pier, the surf, the Spanish Village",
       "drive": "About 15 min south",
-      "qualityStation": "1051",
       "qualityUrl": "https://beachreportcard.org/33.4192/-117.6205/15",
       "advisoryUrl": "https://ocbeachinfo.com/",
       "cams": [
@@ -227,6 +253,10 @@
       "latitude": 33.3826,
       "longitude": -117.5889,
       "facing": 215,
+      "exposure": 1.0,
+      "qualityStations": [
+        "241"
+      ],
       "area": "World-famous surf at San Mateo Creek",
       "drive": "About 20 min south",
       "qualityUrl": "https://beachreportcard.org/33.3826/-117.5889/15",
@@ -239,6 +269,10 @@
       "latitude": 33.3735,
       "longitude": -117.5655,
       "facing": 220,
+      "exposure": 0.8,
+      "qualityStations": [
+        "241"
+      ],
       "area": "Old-school surf & wide-open shoreline",
       "drive": "About 25 min south",
       "qualityUrl": "https://beachreportcard.org/33.3735/-117.5655/15",
@@ -251,9 +285,9 @@
       "latitude": 33.158,
       "longitude": -117.351,
       "facing": 260,
+      "exposure": 0.85,
       "area": "Long beaches, easy afternoons",
       "drive": "About 40\u201355 min south",
-      "qualityStation": "285",
       "qualityUrl": "https://beachreportcard.org/33.158/-117.351/15",
       "advisoryUrl": "https://www.sdbeachinfo.com/",
       "cams": [

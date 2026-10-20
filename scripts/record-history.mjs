@@ -2,7 +2,7 @@
 // Re-running on the same day replaces that day's readings; older days are never removed.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { qualityMatch, waterGrade, sampleDay } from '../conditions.js';
-import { noaaStations, waterTempFor, healTheBayLocations } from '../sources.js';
+import { noaaStations, waterTempFor, healTheBayLocations, marineForecast } from '../sources.js';
 
 const root = new URL('../', import.meta.url);
 const dir = new URL('data/history/', root);
@@ -10,11 +10,13 @@ const config = JSON.parse(readFileSync(new URL('cams.json', root)));
 const now = new Date();
 const today = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles'}).format(now);
 const settle = p => p.then(v => v, e => { console.warn(e.message); return null; });
-const [tempStations, locations] = await Promise.all([settle(noaaStations('watertemp')), settle(healTheBayLocations())]);
+const [tempStations, locations, marine] = await Promise.all([settle(noaaStations('watertemp')), settle(healTheBayLocations()), settle(marineForecast(config.beaches))]);
 const readings = new Map();
 const records = [];
-for (const beach of config.beaches) {
-  const temp = tempStations ? await settle(waterTempFor(beach, tempStations, readings, now)) : null;
+for (const [i, beach] of config.beaches.entries()) {
+  // Same order as the app: the sea-surface model at this beach first, a NOAA sensor as fallback.
+  const sst = marine?.[i]?.current?.sea_surface_temperature;
+  const temp = Number.isFinite(sst) ? null : tempStations ? await settle(waterTempFor(beach, tempStations, readings, now)) : null;
   let grade = null;
   if (locations) {
     const match = qualityMatch(beach, locations);
@@ -24,9 +26,10 @@ for (const beach of config.beaches) {
     }
   }
   records.push({date:today, beach:beach.id,
-    temp: temp ? {value:temp.value, station:temp.station.name, miles:+temp.station.miles.toFixed(1), observed:temp.observed.toISOString(), regional:temp.regional} : null, grade});
+    temp: Number.isFinite(sst) ? {value:+sst.toFixed(1), station:'Open-Meteo model at this beach', source:'model', observed:marine[i].current.time, regional:false}
+      : temp ? {value:temp.value, station:temp.station.name, source:'sensor', miles:+temp.station.miles.toFixed(1), observed:temp.observed.toISOString(), regional:temp.regional} : null, grade});
 }
-if (!tempStations && !locations) { console.error('No source responded; nothing recorded.'); process.exit(1); }
+if (!tempStations && !locations && !marine) { console.error('No source responded; nothing recorded.'); process.exit(1); }
 mkdirSync(dir, {recursive:true});
 const month = today.slice(0, 7), file = new URL(`${month}.json`, dir), indexFile = new URL('index.json', dir);
 const existing = existsSync(file) ? JSON.parse(readFileSync(file)).records : [];

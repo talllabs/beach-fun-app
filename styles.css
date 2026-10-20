@@ -14,3 +14,5 @@
 .grade-letter{font-size:11px;font-weight:700;fill:var(--ink)}.grade-mark.good{fill:#0b7a4b}.grade-mark.fair{fill:#b07a00}.grade-mark.poor{fill:#b3261e}.grade-mark.none{fill:#b9c5c1}
 .history-data summary{font-size:11px;color:var(--muted);padding:8px 0;cursor:pointer}.history-table{width:100%;border-collapse:collapse;font-size:11px}.history-table th,.history-table td{text-align:left;padding:5px 6px;border-bottom:1px solid #edf1ed;vertical-align:top}.history-table th{color:var(--muted);font-weight:600}
 @media(max-width:700px){.metric{max-width:none;flex-basis:calc(50% - 8px)}.history-table{font-size:10px}.history-data{overflow-x:auto}}
+a.drive{text-decoration:none;color:var(--teal);font-weight:600;background:#fff}a.drive:hover{background:#e8f2ee}
+.drive-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px}.drive-bar .outline{font-size:12px}#drive-status{font-size:11px;color:var(--muted);line-height:1.5;flex:1;min-width:200px}
