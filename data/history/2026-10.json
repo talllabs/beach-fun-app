@@ -1728,6 +1728,222 @@
     "kind": "nearby",
     "miles": 1.9
    }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "carlsbad",
+   "temp": {
+    "value": 74.6,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Carlsbad, projection of Cerezo Dr.",
+    "kind": "nearby",
+    "miles": 2.3
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "dana-point-harbor",
+   "temp": {
+    "value": 74.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Dana Point Harbor, Harbor Patrol Dock",
+    "kind": "local",
+    "miles": 0.3
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "doheny",
+   "temp": {
+    "value": 74.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "Dana Point - Capistrano County Beach",
+    "kind": "nearby",
+    "miles": 1.2
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "huntington",
+   "temp": {
+    "value": 73,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A",
+    "sampled": "2026-10-23",
+    "station": "Huntington City Beach - Huntington Street",
+    "kind": "local",
+    "miles": 0.5
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "laguna",
+   "temp": {
+    "value": 73.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Laguna Beach- Laguna Main Beach",
+    "kind": "local",
+    "miles": 0.1
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "monarch",
+   "temp": {
+    "value": 74.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Monarch Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "newport",
+   "temp": {
+    "value": 72.9,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A",
+    "sampled": "2026-10-23",
+    "station": "Santa Ana River Mouth- north side",
+    "kind": "nearby",
+    "miles": 2.3
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "salt-creek",
+   "temp": {
+    "value": 74.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Salt Creek County Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "san-clemente",
+   "temp": {
+    "value": 73.4,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "San Clemente - Clock Tower North",
+    "kind": "local",
+    "miles": 0.1
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "san-onofre",
+   "temp": {
+    "value": 73.5,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "San Clemente State Beach - Avenida Calafia",
+    "kind": "nearby",
+    "miles": 3.2
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "strands",
+   "temp": {
+    "value": 74.8,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-23",
+    "station": "Dana Point - Dana Strands Beach",
+    "kind": "local",
+    "miles": 0.2
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "beach": "trestles",
+   "temp": {
+    "value": 75.1,
+    "station": "Open-Meteo model at this beach",
+    "source": "model",
+    "observed": "2026-10-28T12:45",
+    "regional": false
+   },
+   "grade": {
+    "grade": "A+",
+    "sampled": "2026-10-16",
+    "station": "San Clemente State Beach - Avenida Calafia",
+    "kind": "nearby",
+    "miles": 1.9
+   }
   }
  ]
 }
